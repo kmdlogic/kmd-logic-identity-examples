@@ -1,0 +1,57 @@
+﻿<Window x:Class="Kmd.Logic.Identity.Examples.AdminApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kmd.Logic.Identity.Examples.AdminApp"
+        mc:Ignorable="d"
+        Title="Admin App" Height="600" Width="800" Loaded="Window_Loaded">
+    <Grid Background="LightSteelBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="SignInButton" Content="Sign In" HorizontalAlignment="Right" Padding="5" Click="SignInButton_Click" Margin="5" FontFamily="Segoe Ui"/>
+            <Button x:Name="SignOutButton" Content="Sign Out" HorizontalAlignment="Right" Padding="5" Click="SignOutButton_Click" Margin="5" Visibility="Collapsed" FontFamily="Segoe Ui"/>
+        </StackPanel>
+
+        <TextBox Grid.Row="2" x:Name="ResultText" TextWrapping="Wrap" Margin="5" FontFamily="Segoe Ui" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+
+        <TabControl x:Name="dataGridsTab" Visibility="Collapsed" Grid.Row="3">
+            <TabItem Header="Dates">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="deleteDates" Content="Delete ALL Dates" Padding="5" Margin="5" Click="DeleteDates_OnClick" FontFamily="Segoe Ui"></Button>
+                        <Button x:Name="RefreshDates" Content="Refresh" HorizontalAlignment="Right" Padding="5" Click="RefreshDates_OnClick" Margin="5" FontFamily="Segoe Ui"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="datesGrid" Grid.Row="1" AutoGenerateColumns="True"></DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="TODOs">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBox x:Name="txtUserId" Width="250" VerticalContentAlignment="Center" FontFamily="Segoe Ui" Margin="5"></TextBox>
+                        <Button x:Name="deleteTodos" Content="Delete Todos for User" Padding="5" Margin="5" Click="DeleteTodos_OnClick" FontFamily="Segoe Ui"></Button>
+                        <Button x:Name="RefreshTodos" Content="Refresh" HorizontalAlignment="Right" Padding="5" Click="RefreshTodos_OnClick" Margin="5" FontFamily="Segoe Ui"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="todosGrid" Grid.Row="1" AutoGenerateColumns="True"></DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

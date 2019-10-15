@@ -1,0 +1,32 @@
+﻿@page
+@model Kmd.Logic.Identity.Examples.AggregatedCalendar.Pages.MyCalendarModel
+@{
+    ViewData["Title"] = "MyCalendar";
+}
+
+<h1>MyCalendar</h1>
+
+<p>My Calendar shows an aggregated view of your TODO items and dates of interest that have been centrally published and made available to you for reference.</p>
+
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <p>@Model.ErrorMessage</p>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var calendarEvent in Model.CalendarEvents.OrderBy(o => o.Date))
+        {
+            <tr>
+                <td>@calendarEvent.Date.ToString("yyyy/MM/dd")</td>
+                <td>@calendarEvent.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
