@@ -17,8 +17,6 @@ Each project in the solution corresponds to an architectural piece in the follow
 
 ## Logic Identity application registrations
 
-<hr/>
-
 ### APIs
 #### Details
 ```
