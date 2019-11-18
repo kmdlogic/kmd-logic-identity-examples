@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -76,16 +77,13 @@ namespace Kmd.Logic.Identity.Examples.DatePublisherService
                 {
                     httpClient.BaseAddress = new Uri(_clientCredentialsConfig.TokenEndpointBaseAddress);
 
-                    var clientCredentialsRequest = new ClientCredentialsRequest
+                    var content = new FormUrlEncodedContent(new[]
                     {
-                        grant_Type = "client_credentials",
-                        client_Id = _clientCredentialsConfig.ClientId,
-                        client_Secret = _clientCredentialsConfig.Secret,
-                        scope = _clientCredentialsConfig.Scope
-                    };
-
-                    var clientCredsJson = JsonConvert.SerializeObject(clientCredentialsRequest);
-                    var content = new StringContent(clientCredsJson, Encoding.UTF8, "application/json");
+                        new KeyValuePair<string, string>("grant_type", "client_credentials"),
+                        new KeyValuePair<string, string>("client_id", _clientCredentialsConfig.ClientId),
+                        new KeyValuePair<string, string>("client_secret", _clientCredentialsConfig.Secret),
+                        new KeyValuePair<string, string>("scope", _clientCredentialsConfig.Scope)
+                    });
 
                     var requestResult = await httpClient.PostAsync(_clientCredentialsConfig.TokenEndpoint, content);
                     var contentResult = await requestResult.Content.ReadAsStringAsync();
@@ -97,7 +95,7 @@ namespace Kmd.Logic.Identity.Examples.DatePublisherService
                     }
 
                     var json = JObject.Parse(contentResult);
-                    _accessToken = (string)json["accessToken"];
+                    _accessToken = (string)json["access_token"];
                     _parsedAccessToken = new JwtSecurityToken(_accessToken);
                 }
             }
