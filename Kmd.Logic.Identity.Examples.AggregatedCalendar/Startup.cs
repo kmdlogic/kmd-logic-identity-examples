@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Kmd.Logic.Identity.Examples.AggregatedCalendar
 {
@@ -64,8 +65,9 @@ namespace Kmd.Logic.Identity.Examples.AggregatedCalendar
                         .Build();
 
                     config.Filters.Add(new AuthorizeFilter(policy));
+                    config.EnableEndpointRouting = false;
                 })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             // Adds a default in-memory implementation of IDistributedCache.
             services.AddDistributedMemoryCache();
@@ -78,7 +80,7 @@ namespace Kmd.Logic.Identity.Examples.AggregatedCalendar
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
